@@ -14,6 +14,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public ArrayList notes = new ArrayList<>();
+    public int position;
 
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
@@ -34,20 +35,21 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DetailsActivity.class));
-                finish();
+                //startActivity(new Intent(MainActivity.this, DetailsActivity.class));
+                addNote();
+                //finish();
             }
         });
     }
 
     //populate list with dummy data
-    public void populateList(){
+    public void populateList() {
         notes = new ArrayList<>();
 
-        notes.add(new Note("","Title1", "Description1"));
-        notes.add(new Note("","Title2", "Description2"));
-        notes.add(new Note("","Title3", "Description3"));
-        notes.add(new Note("","Title4", "Description4"));
+        notes.add(new Note("", "Title1", "Description1"));
+        notes.add(new Note("", "Title2", "Description2"));
+        notes.add(new Note("", "Title3", "Description3"));
+        notes.add(new Note("", "Title4", "Description4"));
     }
 
     private void buildRecyclerView() {
@@ -59,23 +61,27 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener(){
+        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //when clicked it will start a new activity to update notes
-                   // addNote(position);
+                //when clicked it should start a new activity to update notes
+                //addNote();
             }
+
             @Override
             public void onDeleteClick(int position) {
                 //when delete icon is clicked it will remove note item
                 notes.remove(position);
                 adapter.notifyItemRemoved(position);
-
             }
         });
     }
 
-    //add new note to list
-
+    //add note
+    public void addNote(){
+        notes.add(position, new Note("", "Title"+position, "Description"+position));
+        adapter.notifyItemInserted(position);
     }
+
+}
 

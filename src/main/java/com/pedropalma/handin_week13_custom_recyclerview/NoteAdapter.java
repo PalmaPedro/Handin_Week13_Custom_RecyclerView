@@ -43,8 +43,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             clickListener.onItemClick(position);
-                            //this will be called when user  clicks item
-
                         }
                     }
                 }
